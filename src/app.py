@@ -73,8 +73,8 @@ def delete_single_member(id):
     member = jackson_family.get_member(id)
 
     if member is not None:
-        jackson_familiy.delete_member(id)
-        return jsonify({"message": f"Member deleted succesfully: {member}"), 200
+        jackson_family.delete_member(id)
+        return jsonify({"message": f"Member deleted succesfully: {member}"}), 200
     else:
         return jsonify({"error": "Member not found"}, 404)
 
