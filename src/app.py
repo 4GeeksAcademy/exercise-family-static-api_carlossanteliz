@@ -37,6 +37,11 @@ Jimmy = {
     "lucky_numbers": [1]
 }
 
+jackson_family.add_member(John)
+jackson_family.add_member(Jane)
+jackson_family.add_member(Jimmy)
+
+
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -59,7 +64,7 @@ def get_all_members():
 @app.route('/member/<int:id>', methods=['GET'])
 def get_single_member(id):
     member = jackson_family.get_member(id)
-    return
+    return jsonify(member), 200
 
 @app.route('/member', methods=['POST'])
 def create_member():
@@ -74,6 +79,7 @@ def delete_single_member(id):
 
     if member is not None:
         jackson_family.delete_member(id)
+        member = jackson_family.get_member(id)
         return jsonify({"message": f"Member deleted succesfully: {member}"}), 200
     else:
         return jsonify({"error": "Member not found"}, 404)
